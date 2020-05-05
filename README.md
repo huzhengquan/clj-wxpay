@@ -25,7 +25,7 @@ clojure版本的微信支付sdk。基于官方sdk做的包装，通过一个函�
 
 `appid`、`mch_id`、`key`是必有项，可在请求API时携带，也可通过系统属性来配置（System/setProperty）。
 
-官方文档中的`appid`、`mch_id`、`key`、`nonce_str`、`sign`、`sign_type`参数可在第个参数params内容中忽略。
+官方文档中的`appid`、`mch_id`、`key`、`nonce_str`、`sign`、`sign_type`参数可在第2个参数params内容中忽略。
 
 #### 内部配置系统属性
 
