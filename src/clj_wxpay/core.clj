@@ -1,8 +1,9 @@
-(ns clj-wxpay.core
+(ns 
+  ^{:author "Hu Zhengquan <huzhengquan@gmail.com>"
+    :doc    "微信支付SDK的CLOJURE版本"}
+  clj-wxpay.core
   (:import [java.util HashMap Map]
            [com.github.wxpay.sdk WXPay WXPayConfig WXPayConstants$SignType]))
-
-;(set! *warn-on-reflection* true)
 
 (defn- wxpay-config
   [{:keys [appid mch_id key cert]
@@ -47,4 +48,4 @@
         res (if cert 
               (. wxpay requestWithCert ^String (str api cmd) ^Map reqData ^int connectTimeoutMs ^int readTimeoutMs)
               (. wxpay requestWithoutCert ^String (str api cmd) ^Map reqData ^int connectTimeoutMs ^int readTimeoutMs))]
-    (.processResponseXml wxpay res)))
+    (dissoc (.processResponseXml wxpay res) "nonce_str" "sign")))
