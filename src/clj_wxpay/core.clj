@@ -48,4 +48,4 @@
         res (if cert 
               (. wxpay requestWithCert ^String (str api cmd) ^Map reqData ^int connectTimeoutMs ^int readTimeoutMs)
               (. wxpay requestWithoutCert ^String (str api cmd) ^Map reqData ^int connectTimeoutMs ^int readTimeoutMs))]
-    (dissoc (.processResponseXml wxpay res) "nonce_str" "sign")))
+    (dissoc (into {} (.processResponseXml wxpay res)) "nonce_str" "sign")))
