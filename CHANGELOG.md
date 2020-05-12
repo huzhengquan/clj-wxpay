@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## 0.1.3 - 2020-05-12
+### 修改
+- 修改响应数据由java.util.HashMap到clojure.lang.PersistentArrayMap
+- 过滤响应内容中的sign、nonce_str
+
 ## 0.1.1 - 2020-05-05
 ### 增加
 - `sign_type`
