@@ -4,7 +4,7 @@ clojure版本的微信支付sdk。基于官方sdk做的包装，通过一个函�
 
 ## 安装
 
-增加 `[huzhengquan/clj-wxpay "0.1.2"]` 到 `project.clj` 的 `dependencies` 之中。
+增加 `[huzhengquan/clj-wxpay "0.1.3"]` 到 `project.clj` 的 `dependencies` 之中。
 
 ## 使用方法
 
