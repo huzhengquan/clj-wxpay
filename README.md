@@ -19,7 +19,7 @@ clojure版本的微信支付sdk。基于官方sdk做的包装，通过一个函�
 ```
 - cmd 对应官方文档API列表中的*接口链接*后半部分，如`"pay/unifiedorder"`、`"secapi/pay/refund"`等
 - params 为请求参数，参考官方文档中的*请求参数*部分
-- config 为配置项，包括`api`、`cert`、`appid`、`mch_id`、`key`、`connectTimeoutMs`、`readTimeoutMs`、`sign_type`。
+- config 为配置项，包括`api`、`cert`、`appid`、`mch_id`、`key`、`connectTimeoutMs`、`readTimeoutMs`、`sign_type`、`sandbox?`。
 
 ### 安全项
 
@@ -34,6 +34,7 @@ clojure版本的微信支付sdk。基于官方sdk做的包装，通过一个函�
 (System/setProperty "clj.wxpay.mch_id" "xxx")
 (System/setProperty "clj.wxpay.key" "xxx")
 (System/setProperty "clj.wxpay.sign_type" "HMAC-SHA256") ; 缺省时为:MD5
+(System/setProperty "clj.wxpay.sandbox" "true") ; 缺省时为:MD5
 ```
 
 #### JVM 命令行配置
@@ -58,11 +59,11 @@ java -jar -Dclj.wxpay.appid=xxx -Dclj.wxpay.mch_id=xxx -Dclj.wxpay.key=xxx app.j
 - `:appid` 微信小程序后台APP的唯一标识
 - `:mch_id` 微信支付商户号
 - `:key` API密钥
-- `:api` 微信支付API的URL前缀，正常环境为：`"https://api.mch.weixin.qq.com/"`（默认），仿真系统为：`"https://api.mch.weixin.qq.com/sandboxnew/"`
 - `:cert` 证书内容（InputStream）,在使用不需要证书API时要忽略此项。
 - `:sign_type` 签名类型，目前支持`"HMAC-SHA256"`和`"MD5"`，默认为`"MD5"`
 - `:connectTimeoutMs` 连接超时时间，单位是毫秒，默认`10000`
 - `:readTimeoutMs` 读数据超时时间，单位是毫秒，默认`20000`
+- `sandbox?` 仿真系统,默认`false` 
 
 ### 响应
 
@@ -74,6 +75,8 @@ java -jar -Dclj.wxpay.appid=xxx -Dclj.wxpay.mch_id=xxx -Dclj.wxpay.key=xxx app.j
 
 ```clojure
 {"return_msg" "No Bill Exist", "error_code" "20002", "return_code" "FAIL"}
+; 或
+{"return_msg" "ok", "error_code" "SUCCESS", "data": "xxx"}
 ```
 
 ### API使用示例
@@ -90,7 +93,7 @@ java -jar -Dclj.wxpay.appid=xxx -Dclj.wxpay.mch_id=xxx -Dclj.wxpay.key=xxx app.j
 (wxpay/request "pay/orderquery" {"transaction_id" "xxx"})
 
 ; 在仿真系统中测试
-(wxpay/request "pay/orderquery" {"transaction_id" "xxx"} :api "https://api.mch.weixin.qq.com/sandboxnew/")
+(wxpay/request "pay/orderquery" {"transaction_id" "xxx"} :sandbox? true)
 
 ; 使用指定超时配置
 (wxpay/request "pay/orderquery" {"transaction_id" "xxx"} :connectTimeoutMs 1000 :readTimeoutMs 1000)
